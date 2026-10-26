@@ -8,3 +8,5 @@ outputs/models/
 outputs/
 MANIFEST_SHA256.txt
 git_history.bundle
+
+data/raw/.*
