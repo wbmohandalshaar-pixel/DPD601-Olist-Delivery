@@ -5,3 +5,6 @@ data/raw/*.csv
 data/processed/
 outputs/models/
 *.log
+outputs/
+MANIFEST_SHA256.txt
+git_history.bundle
