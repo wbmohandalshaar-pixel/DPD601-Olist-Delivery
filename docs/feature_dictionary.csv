@@ -1,0 +1,29 @@
+feature,formula,source,why_available_at_approval,rationale
+item_count,Count item rows per order,items,Assumed cart details known,Order size
+seller_count,Distinct seller_id per order,items,Assumed assigned sellers known,Coordination complexity
+product_count,Distinct product_id per order,items,Assumed cart details known,Assortment complexity
+category_count,Distinct filled category per order,items + products + translation,Assumed catalog known,Category diversity
+main_category,Most frequent item category with alphabetical tie break,items + products + translation,Assumed catalog known,Category logistics
+customer_state,Customer administrative state,customers,Known delivery address,Delivery destination
+same_state_share,Mean of seller_state equals customer_state over item rows,items + sellers + customers,Assumed assigned sellers and address known,Item-weighted administrative route proxy
+multi_seller,Indicator seller_count greater than 1,items,Assumed sellers known,Multiple sellers without choosing just one
+mean_weight_g,Mean of valid item weights,items + products,Assumed catalog measurements known,Parcel characteristics
+max_weight_g,Maximum valid item weight,items + products,Assumed catalog measurements known,Largest weight
+mean_volume_cm3,Mean of length times height times width,items + products,Assumed catalog dimensions known,Size proxy not packaged parcel volume
+total_weight_g,Sum of known item weights with min_count 1,items + products,Assumed catalog measurements known,Known weight sum may be partial
+physical_missing_share,Share items with weight or volume missing,items + products,Missingness observable at prediction,Incomplete catalog signal
+total_price,Sum item price in BRL,items,Assumed cart pricing known,Order value
+total_freight,Sum item freight_value in BRL,items,Assumed shipping quote known,Quoted freight
+freight_share,total_freight divided by positive total_price else missing,items,Assumed pricing known,Relative shipping burden
+payment_count,Count payment rows,payments,Explicit coursework assumption,Payment structure
+payment_total,Sum payment_value in BRL,payments,Explicit coursework assumption,Total recorded payment
+max_installments,Maximum installments over payment rows,payments,Explicit coursework assumption,Financing pattern
+payment_type_count,Distinct payment_type,payments,Explicit coursework assumption,Payment variety
+main_payment_type,Highest total payment value with alphabetical tie break,payments,Explicit coursework assumption,Dominant method
+has_items,Indicator item aggregate exists,orders + items,Data coverage observable,Separate absence from zero
+has_payments,Indicator payment aggregate exists,orders + payments,Data coverage observable,Separate absence from zero
+approval_hour,Hour from approval timestamp,orders,Known at approval,Time of day
+approval_weekday,Weekday Monday 0 to Sunday 6,orders,Known at approval,Weekday pattern
+approval_month,Month number 1 to 12,orders,Known at approval,Seasonality limited historical repetition
+approval_wait_hours,Elapsed hours from purchase to approval,orders,Both events known at approval,Processing delay
+planned_days,Estimated date minus approval date in calendar days,orders,Expected date assumed known,Promised window

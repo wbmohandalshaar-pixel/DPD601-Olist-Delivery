@@ -1,0 +1,19 @@
+{
+  "seed": 601,
+  "embargo_days": 90,
+  "fold_starts": [
+    "2017-06-01",
+    "2017-08-01",
+    "2017-10-01"
+  ],
+  "fold_months": 1,
+  "validation_start": "2018-01-01",
+  "calibration_end": "2018-01-16",
+  "validation_end": "2018-02-01",
+  "test_start": "2018-05-01",
+  "selection_metric": "mean temporal CV average_precision",
+  "threshold_metric": "validation late-class F1",
+  "calibration_method": "sigmoid on earlier validation block",
+  "test_status": "Historical out-of-time evaluation; overlapping period was inspected in v1. Not a new untouched holdout.",
+  "label_available_rule": "Punctual on arrival; late at first overdue midnight"
+}
