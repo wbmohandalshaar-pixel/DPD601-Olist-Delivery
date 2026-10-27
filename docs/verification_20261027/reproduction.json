@@ -1,0 +1,11 @@
+{
+  "all_previous_final_metrics_max_absolute_difference": 0.0,
+  "previous_cv_ap_max_absolute_difference": 0.0,
+  "cv_configurations": 16,
+  "cv_fits": 48,
+  "winner": "LogisticLog_C1_plain",
+  "test_status": "historical, previously inspected",
+  "full_tests": 37,
+  "test_result": "PASS",
+  "raw_hashes_verified": 7
+}

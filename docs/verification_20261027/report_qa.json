@@ -1,0 +1,32 @@
+{
+  "pages": 23,
+  "visually_reviewed_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+  ],
+  "blank_pages": 0,
+  "layout": "Reviewed; no clipped content or split tables found; Arabic mixed-script cells corrected",
+  "docx_sha256": "cd36f16dfee7a419eea24d38c27c9e8c7746721f1cfcb10ad38c5751eab74359",
+  "pdf_sha256": "a8ef8722be45ee2c778b0860d1bd2692db98a307613b97a0f6dfe5a42b07ed59"
+}

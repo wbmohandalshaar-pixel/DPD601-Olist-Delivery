@@ -1,0 +1,42 @@
+test_lists_every_missing_input_before_writing_outputs (test_preflight.PreflightTests.test_lists_every_missing_input_before_writing_outputs) ... ok
+test_reports_only_absent_files (test_preflight.PreflightTests.test_reports_only_absent_files) ... ok
+test_threshold_maximizes_f1_over_observed_scores (test_preflight.PreflightTests.test_threshold_maximizes_f1_over_observed_scores) ... ok
+test_unknown_target_cannot_become_mature_late_label (test_preflight.PreflightTests.test_unknown_target_cannot_become_mature_late_label) ... ok
+test_aggregate_conservation (test_project.ArtifactTests.test_aggregate_conservation) ... ok
+test_all_cv_trials_use_three_folds (test_project.ArtifactTests.test_all_cv_trials_use_three_folds) ... ok
+test_calibration_ranking_is_monotone (test_project.ArtifactTests.test_calibration_ranking_is_monotone) ... ok
+test_cohort_membership_does_not_depend_on_arrival_speed (test_project.ArtifactTests.test_cohort_membership_does_not_depend_on_arrival_speed) ... ok
+test_exclusion_reconciliation (test_project.ArtifactTests.test_exclusion_reconciliation) ... ok
+test_fresh_checkout_recreates_processed_directory (test_project.ArtifactTests.test_fresh_checkout_recreates_processed_directory) ... ok
+test_join_counts (test_project.ArtifactTests.test_join_counts) ... ok
+test_no_forbidden_features (test_project.ArtifactTests.test_no_forbidden_features) ... ok
+test_one_row_per_order (test_project.ArtifactTests.test_one_row_per_order) ... ok
+test_only_eligible_delivered (test_project.ArtifactTests.test_only_eligible_delivered) ... ok
+test_postal_prefixes_preserved (test_project.ArtifactTests.test_postal_prefixes_preserved) ... ok
+test_primary_keys (test_project.ArtifactTests.test_primary_keys) ... ok
+test_raw_hashes_match_manifest (test_project.ArtifactTests.test_raw_hashes_match_manifest) ... ok
+test_saved_pipeline_reproduces_test_scores (test_project.ArtifactTests.test_saved_pipeline_reproduces_test_scores) ... ok
+test_saved_selection_and_metrics_consistent (test_project.ArtifactTests.test_saved_selection_and_metrics_consistent) ... ok
+test_selected_model_comes_from_cv_only (test_project.ArtifactTests.test_selected_model_comes_from_cv_only) ... ok
+test_target_matches_calendar_definition (test_project.ArtifactTests.test_target_matches_calendar_definition) ... ok
+test_temporal_disjoint_and_mature (test_project.ArtifactTests.test_temporal_disjoint_and_mature) ... ok
+test_temporal_invariants (test_project.ArtifactTests.test_temporal_invariants) ... ok
+test_validation_blocks_are_disjoint (test_project.ArtifactTests.test_validation_blocks_are_disjoint) ... ok
+test_feature_dictionary_exactly_matches_inputs (test_project.LogicTests.test_feature_dictionary_exactly_matches_inputs) ... ok
+test_late_label_known_at_first_overdue_midnight (test_project.LogicTests.test_late_label_known_at_first_overdue_midnight) ... ok
+test_log_cyclic_transform_preserves_missingness (test_project.LogicTests.test_log_cyclic_transform_preserves_missingness) ... ok
+test_many_to_many_fixture_demonstrates_inflation (test_project.LogicTests.test_many_to_many_fixture_demonstrates_inflation) ... ok
+test_preprocessor_unseen_category_and_train_median (test_project.LogicTests.test_preprocessor_unseen_category_and_train_median) ... ok
+test_threshold_uses_scores (test_project.LogicTests.test_threshold_uses_scores) ... ok
+test_unknown_labels_stop_whole_cohort (test_project.LogicTests.test_unknown_labels_stop_whole_cohort) ... ok
+test_earlier_day_is_on_time (test_project.TargetTests.test_earlier_day_is_on_time) ... ok
+test_invalid_date_unknown (test_project.TargetTests.test_invalid_date_unknown) ... ok
+test_missing_actual_unknown (test_project.TargetTests.test_missing_actual_unknown) ... ok
+test_missing_estimate_unknown (test_project.TargetTests.test_missing_estimate_unknown) ... ok
+test_next_day_is_late (test_project.TargetTests.test_next_day_is_late) ... ok
+test_same_calendar_day_is_on_time (test_project.TargetTests.test_same_calendar_day_is_on_time) ... ok
+
+----------------------------------------------------------------------
+Ran 37 tests in 39.723s
+
+OK
