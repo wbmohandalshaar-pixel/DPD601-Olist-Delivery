@@ -21,7 +21,20 @@ def audit(tables, stage):
             rows.append(dict(stage=stage, table=name, rows=len(d), columns=len(d.columns), column=c, dtype=str(d[c].dtype), missing=int(d[c].isna().sum()), missing_pct=100 * d[c].isna().mean(), duplicate_rows=int(d.duplicated().sum())))
     return pd.DataFrame(rows)
 
+def require_raw_files(raw):
+    """Report all missing inputs before creating any generated artifacts."""
+    raw = Path(raw)
+    missing = [name for name in FILES.values() if not (raw / name).is_file()]
+    if missing:
+        raise FileNotFoundError(
+            'Missing original CSV files in ' + str(raw) + ':\n' +
+            '\n'.join(missing) +
+            '\nRestore the approved data package; Git intentionally excludes raw CSVs.'
+        )
+
+
 def load(raw):
+    require_raw_files(raw)
     tables = {}
     hashes = {}
     for name, f in FILES.items():
@@ -32,6 +45,7 @@ def load(raw):
 
 def build(root):
     raw = root / 'data/raw'
+    require_raw_files(raw)
     out = root / 'outputs/tables'
     out.mkdir(parents=True, exist_ok=True)
     (root / 'data/processed').mkdir(parents=True, exist_ok=True)

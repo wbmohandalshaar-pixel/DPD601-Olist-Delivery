@@ -91,15 +91,6 @@ class ArtifactTests(unittest.TestCase):
         self.assertEqual(str(t['customers'].customer_zip_code_prefix.dtype), 'string')
         self.assertTrue(t['customers'].customer_zip_code_prefix.str.len().eq(5).all())
 
-    def test_preprocessor_unseen_category_and_train_median(self):
-        from src.data import NUMERIC, CATEGORICAL
-        train = pd.DataFrame({**{k: [1.0, 3.0] for k in NUMERIC}, **{k: ['a', 'a'] for k in CATEGORICAL}})
-        test = pd.DataFrame({**{k: [np.nan] for k in NUMERIC}, **{k: ['unseen'] for k in CATEGORICAL}})
-        p = preprocessing()
-        p.fit(train)
-        trans = p.transform(test)
-        self.assertEqual(trans.shape[0], 1)
-        np.testing.assert_array_equal(p.named_transformers_['num'].named_steps['impute'].statistics_, np.repeat(2.0, len(NUMERIC)))
 
     def test_saved_selection_and_metrics_consistent(self):
         path = ROOT / 'outputs/tables/test_metrics.csv'
@@ -113,10 +104,6 @@ class ArtifactTests(unittest.TestCase):
         for k in ['tp', 'tn', 'fp', 'fn', 'f1', 'average_precision']:
             self.assertAlmostEqual(m[k], row[k], places=10)
 
-    def test_feature_dictionary_exactly_matches_inputs(self):
-        dictionary = pd.read_csv(ROOT / 'docs/feature_dictionary.csv')
-        self.assertEqual(set(dictionary.feature), set(FEATURES))
-        self.assertEqual(len(dictionary), len(FEATURES))
 
     def test_raw_hashes_match_manifest(self):
         import hashlib
@@ -124,16 +111,6 @@ class ArtifactTests(unittest.TestCase):
         for name, digest in manifest.items():
             self.assertEqual(hashlib.sha256((ROOT / 'data/raw' / name).read_bytes()).hexdigest(), digest)
 
-    def test_many_to_many_fixture_demonstrates_inflation(self):
-        items = pd.DataFrame({'order_id': ['a'] * 3, 'price': [10.0, 20.0, 30.0]})
-        payments = pd.DataFrame({'order_id': ['a'] * 2, 'payment_value': [25.0, 35.0]})
-        bad = items.merge(payments, on='order_id')
-        self.assertEqual(len(bad), 6)
-        self.assertEqual(bad.price.sum(), 120.0)
-        good = items.groupby('order_id', as_index=False).price.sum().merge(payments.groupby('order_id', as_index=False).payment_value.sum(), on='order_id', validate='one_to_one')
-        self.assertEqual(len(good), 1)
-        self.assertEqual(good.price.sum(), 60.0)
-        self.assertEqual(good.payment_value.sum(), 60.0)
 
     def test_saved_pipeline_reproduces_test_scores(self):
         import joblib
@@ -170,18 +147,7 @@ class ArtifactTests(unittest.TestCase):
         for first, second in zip(before, after):
             self.assertEqual(set(first.order_id), set(second.order_id))
 
-    def test_late_label_known_at_first_overdue_midnight(self):
-        from src.validation import label_available_at
-        sample = pd.DataFrame({'is_late': [1, 0], 'order_estimated_delivery_date': ['2018-01-10', '2018-01-10'], 'order_delivered_customer_date': ['2018-03-01 12:00:00', '2018-01-10 23:59:00']})
-        actual = label_available_at(sample)
-        self.assertEqual(actual.iloc[0], pd.Timestamp('2018-01-11'))
-        self.assertEqual(actual.iloc[1], pd.Timestamp('2018-01-10 23:59:00'))
 
-    def test_unknown_labels_stop_whole_cohort(self):
-        from src.validation import require_available
-        sample = pd.DataFrame({'is_late': [0], 'order_estimated_delivery_date': ['2018-01-10'], 'order_delivered_customer_date': ['2018-01-10 12:00:00']})
-        with self.assertRaises(ValueError):
-            require_available(sample, '2018-01-05')
 
     def test_validation_blocks_are_disjoint(self):
         cal = pd.read_csv(ROOT / 'outputs/tables/calibration_membership.csv')
@@ -213,6 +179,53 @@ class ArtifactTests(unittest.TestCase):
             self.assertGreater(cal.coef_[0, 0], 0)
             self.assertTrue(np.diff(cal.predict_proba(score_logit([0.01, 0.1, 0.5, 0.9]))[:, 1]).min() > 0)
 
+
+class LogicTests(unittest.TestCase):
+
+    def test_preprocessor_unseen_category_and_train_median(self):
+        from src.data import NUMERIC, CATEGORICAL
+        train = pd.DataFrame({**{k: [1.0, 3.0] for k in NUMERIC}, **{k: ['a', 'a'] for k in CATEGORICAL}})
+        test = pd.DataFrame({**{k: [np.nan] for k in NUMERIC}, **{k: ['unseen'] for k in CATEGORICAL}})
+        p = preprocessing()
+        p.fit(train)
+        trans = p.transform(test)
+        self.assertEqual(trans.shape[0], 1)
+        np.testing.assert_array_equal(p.named_transformers_['num'].named_steps['impute'].statistics_, np.repeat(2.0, len(NUMERIC)))
+
+
+    def test_feature_dictionary_exactly_matches_inputs(self):
+        dictionary = pd.read_csv(ROOT / 'docs/feature_dictionary.csv')
+        self.assertEqual(set(dictionary.feature), set(FEATURES))
+        self.assertEqual(len(dictionary), len(FEATURES))
+
+
+    def test_many_to_many_fixture_demonstrates_inflation(self):
+        items = pd.DataFrame({'order_id': ['a'] * 3, 'price': [10.0, 20.0, 30.0]})
+        payments = pd.DataFrame({'order_id': ['a'] * 2, 'payment_value': [25.0, 35.0]})
+        bad = items.merge(payments, on='order_id')
+        self.assertEqual(len(bad), 6)
+        self.assertEqual(bad.price.sum(), 120.0)
+        good = items.groupby('order_id', as_index=False).price.sum().merge(payments.groupby('order_id', as_index=False).payment_value.sum(), on='order_id', validate='one_to_one')
+        self.assertEqual(len(good), 1)
+        self.assertEqual(good.price.sum(), 60.0)
+        self.assertEqual(good.payment_value.sum(), 60.0)
+
+
+    def test_late_label_known_at_first_overdue_midnight(self):
+        from src.validation import label_available_at
+        sample = pd.DataFrame({'is_late': [1, 0], 'order_estimated_delivery_date': ['2018-01-10', '2018-01-10'], 'order_delivered_customer_date': ['2018-03-01 12:00:00', '2018-01-10 23:59:00']})
+        actual = label_available_at(sample)
+        self.assertEqual(actual.iloc[0], pd.Timestamp('2018-01-11'))
+        self.assertEqual(actual.iloc[1], pd.Timestamp('2018-01-10 23:59:00'))
+
+
+    def test_unknown_labels_stop_whole_cohort(self):
+        from src.validation import require_available
+        sample = pd.DataFrame({'is_late': [0], 'order_estimated_delivery_date': ['2018-01-10'], 'order_delivered_customer_date': ['2018-01-10 12:00:00']})
+        with self.assertRaises(ValueError):
+            require_available(sample, '2018-01-05')
+
+
     def test_log_cyclic_transform_preserves_missingness(self):
         from src.data import NUMERIC
         from src.features import log_cyclic_features
@@ -224,7 +237,10 @@ class ArtifactTests(unittest.TestCase):
         self.assertNotIn('approval_hour', changed)
         self.assertIn('approval_hour_sin', changed)
 
+
     def test_threshold_uses_scores(self):
         self.assertGreaterEqual(choose_threshold([0, 1, 1], [0.1, 0.4, 0.8]), 0.1)
+
+
 if __name__ == '__main__':
     unittest.main()
