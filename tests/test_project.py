@@ -158,6 +158,10 @@ class ArtifactTests(unittest.TestCase):
 
     def test_all_cv_trials_use_three_folds(self):
         cv = pd.read_csv(ROOT / 'outputs/tables/temporal_cv_trials.csv')
+        from src.model import model_specs
+        self.assertEqual(set(cv.model), {name for name, _, _ in model_specs()})
+        self.assertFalse(cv.duplicated(['model', 'fold']).any())
+        self.assertEqual(len(cv), 3 * len(model_specs()))
         self.assertTrue(cv.groupby('model').fold.nunique().eq(3).all())
         summary = pd.read_csv(ROOT / 'outputs/tables/cv_summary.csv')
         expected = cv.groupby('model').average_precision.mean()

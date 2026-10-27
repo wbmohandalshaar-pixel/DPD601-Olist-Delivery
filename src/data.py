@@ -17,8 +17,9 @@ def target(actual, estimated):
 def audit(tables, stage):
     rows = []
     for name, d in tables.items():
+        duplicate_rows = int(d.duplicated().sum())
         for c in d:
-            rows.append(dict(stage=stage, table=name, rows=len(d), columns=len(d.columns), column=c, dtype=str(d[c].dtype), missing=int(d[c].isna().sum()), missing_pct=100 * d[c].isna().mean(), duplicate_rows=int(d.duplicated().sum())))
+            rows.append(dict(stage=stage, table=name, rows=len(d), columns=len(d.columns), column=c, dtype=str(d[c].dtype), missing=int(d[c].isna().sum()), missing_pct=100 * d[c].isna().mean(), duplicate_rows=duplicate_rows))
     return pd.DataFrame(rows)
 
 def require_raw_files(raw):

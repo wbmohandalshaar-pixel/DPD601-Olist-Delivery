@@ -79,6 +79,10 @@ def model_specs():
         for weight in [None, 'balanced']:
             result.append((f'LogisticLog_C{c:g}_{weight or "plain"}', 'Logistic',
                            {'C': c, 'class_weight': weight, 'feature_mode': 'log_cyclic'}))
+    # Finite extension registered before this run: vary regularization only.
+    for c in [.03, .3, 3.]:
+        result.append((f'LogisticLog_C{c:g}_plain', 'Logistic',
+                       {'C': c, 'class_weight': None, 'feature_mode': 'log_cyclic'}))
     for leaf in [10, 30]:
         result.append((f'RF_leaf{leaf}', 'RandomForest', {'min_samples_leaf': leaf}))
     for leaves in [15, 31]:

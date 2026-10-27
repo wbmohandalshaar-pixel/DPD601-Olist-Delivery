@@ -19,6 +19,8 @@ def label_available_at(frame):
 
 def require_available(frame, clock):
     """Fail the entire experiment if a cohort contains a not-yet-known label."""
+    if not frame['is_late'].isin([0, 1]).all():
+        raise ValueError('Cohort contains an unknown or invalid target')
     available = label_available_at(frame)
     bad = available.isna() | available.ge(pd.Timestamp(clock))
     if bad.any():
