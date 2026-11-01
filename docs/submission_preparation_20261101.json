@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-01",
+  "scope": "Submission document cleanup only; model, data, predictions, tests and pipeline source unchanged. No new full training run claimed.",
+  "unchanged_files_checked": 70,
+  "pages": 23,
+  "visually_reviewed_changed_pages": [
+    1,
+    2,
+    23
+  ],
+  "other_pages_pixel_identical_to_previously_reviewed_pdf": true,
+  "previous_successful_test_count": 37,
+  "pdf_sha256": "7b23f2196d9e8833b49d56cce46dcd7384d6e0cf94affe1d343ecc7f27689515"
+}
