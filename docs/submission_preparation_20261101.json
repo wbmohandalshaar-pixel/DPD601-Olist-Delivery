@@ -10,5 +10,15 @@
   ],
   "other_pages_pixel_identical_to_previously_reviewed_pdf": true,
   "previous_successful_test_count": 37,
-  "pdf_sha256": "7b23f2196d9e8833b49d56cce46dcd7384d6e0cf94affe1d343ecc7f27689515"
+  "pdf_sha256": "135939066fb9b6446c399369495510df177442cfb77981db89bc9cc65f7620ed",
+  "team_cover_update": {
+    "member_count": 4,
+    "confirmed_name": "mohanad alshaar",
+    "student_id": "mohanad_118315",
+    "remaining_blank_rows": 3,
+    "visually_reviewed_pages": [
+      1
+    ],
+    "remaining_22_pages_pixel_identical": true
+  }
 }
