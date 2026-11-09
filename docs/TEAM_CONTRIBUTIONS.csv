@@ -1,5 +1,5 @@
-member_name,student_id,primary_role,actual_work_done,commits_or_PR_links,reviewed_peer,review_evidence,status
-mohanad alshaar,mohanad_118315,,,,,,Pending real team completion
-,,,,,,,Pending real team completion
-,,,,,,,Pending real team completion
-,,,,,,,Pending real team completion
+﻿member_name,student_id,section,actual_work_done,commits_or_PR_links,reviewed_peer,review_evidence,status,assigned_role
+Mohanad Alshaar,mohanad_118315,C1,تكامل أجزاء المشروع وتشغيل Pipeline على Windows وإدارة Git وإجراء اختبارات النسخة النهائية,cb85496,,,التوزيع مؤكد من الفريق؛ مراجعة زميل قيد التوثيق,تكامل المشروع والتشغيل وGit
+Bayan Ali Ite,bayan_117286,C1,تجهيز الجداول وتنظيف البيانات وفحص النواقص والتحليل الاستكشافي وإعداد الرسوم,,,,التوزيع مؤكد من الفريق؛ مراجعة زميل قيد التوثيق,تنظيف البيانات والتحليل الاستكشافي
+Mazen Alyafi,mazen_216443,C1,بناء نماذج التنبؤ ومقارنتها بالتقسيم الزمني وتقييم المقاييس وتحليل الأخطاء,,,,التوزيع مؤكد من الفريق؛ مراجعة زميل قيد التوثيق,النمذجة والتقييم
+Muhammad Al-Qasir,Muhammad_172653,C1,صياغة التقرير وتوثيق المخرجات ومراجعة الاختبارات وتجهيز نقاط المناقشة,,,,التوزيع مؤكد من الفريق؛ مراجعة زميل قيد التوثيق,التقرير والتوثيق والاختبارات
