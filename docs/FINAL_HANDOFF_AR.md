@@ -17,7 +17,7 @@
 ## هيكل التسليم
 - `docs/Report_AR.docx` و`docs/Report_AR.pdf`: التقرير النهائي.
 - `src/`, `tests/`, `run_pipeline.py`, `predict.py`, `config.json`, `requirements.txt`: الشفرة والتجارب والاختبارات.
-- `data/raw/`, `data/processed/`, `outputs/`: البيانات الأصلية والنتائج والرسوم والنموذج المحفوظ.
+- `data/processed/`, `outputs/`: البيانات المعالجة والنتائج والرسوم والنموذج المحفوظ. ملفات `data/raw/` السبعة غير مرفقة بحزمة الجامعة بسبب حد الرفع، وتُضاف من النسخة المعتمدة لدى المدرّسة لإعادة التنفيذ الكامل.
 - `docs/TEAM_CONTRIBUTIONS.csv`, `docs/TEAM_ROLES_AR.md`, `docs/PEER_REVIEW_TASKS_AR.md`: توثيق الفريق وأدلة المراجعات المطلوبة.
 
 سجل Git التاريخي محفوظ دون إعادة كتابة. لا يوجد ادعاء بأن مراجعات الفريق اكتملت تلقائياً.

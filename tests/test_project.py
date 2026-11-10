@@ -7,6 +7,9 @@ import pandas as pd
 from src.data import target, FEATURES, FORBIDDEN, FILES, KEYS
 from src.model import temporal_split, choose_threshold, metrics, preprocessing
 ROOT = Path(__file__).resolve().parents[1]
+RAW_INPUTS_AVAILABLE = all((ROOT / 'data/raw' / filename).is_file() for filename in FILES.values())
+RAW_INPUTS_NOTE = ('The seven original Kaggle CSVs are intentionally not included in this '
+                   'university submission. Add them to data/raw to run raw-data checks.')
 
 class TargetTests(unittest.TestCase):
 
@@ -35,6 +38,7 @@ class ArtifactTests(unittest.TestCase):
         cls.all = pd.read_csv(ROOT / 'data/processed/all_orders.csv', dtype={'order_id': 'string'})
         cls.d = pd.read_csv(ROOT / 'data/processed/model_orders.csv', parse_dates=['order_approved_at', 'order_delivered_customer_date'])
 
+    @unittest.skipUnless(RAW_INPUTS_AVAILABLE, RAW_INPUTS_NOTE)
     def test_primary_keys(self):
         for n, f in FILES.items():
             d = pd.read_csv(ROOT / 'data/raw' / f)
@@ -50,6 +54,7 @@ class ArtifactTests(unittest.TestCase):
         a = pd.read_csv(ROOT / 'outputs/tables/join_audit.csv')
         self.assertTrue(a.before.eq(a.after).all())
 
+    @unittest.skipUnless(RAW_INPUTS_AVAILABLE, RAW_INPUTS_NOTE)
     def test_aggregate_conservation(self):
         it = pd.read_csv(ROOT / 'data/raw' / FILES['items'])
         pay = pd.read_csv(ROOT / 'data/raw' / FILES['payments'])
@@ -85,6 +90,7 @@ class ArtifactTests(unittest.TestCase):
         self.assertTrue(self.d.planned_days.ge(0).all())
         self.assertTrue(self.d.approval_wait_hours.ge(0).all())
 
+    @unittest.skipUnless(RAW_INPUTS_AVAILABLE, RAW_INPUTS_NOTE)
     def test_postal_prefixes_preserved(self):
         from src.data import load
         t, _ = load(ROOT / 'data/raw')
@@ -105,6 +111,7 @@ class ArtifactTests(unittest.TestCase):
             self.assertAlmostEqual(m[k], row[k], places=10)
 
 
+    @unittest.skipUnless(RAW_INPUTS_AVAILABLE, RAW_INPUTS_NOTE)
     def test_raw_hashes_match_manifest(self):
         import hashlib
         manifest = json.loads((ROOT / 'outputs/tables/raw_sha256.json').read_text())
@@ -125,6 +132,7 @@ class ArtifactTests(unittest.TestCase):
         scores = calibrated_scores(bundle['pipeline'], bundle.get('calibrator'), sample[bundle['features']])
         np.testing.assert_allclose(scores, saved.probability.iloc[:200], rtol=1e-10, atol=1e-12)
 
+    @unittest.skipUnless(RAW_INPUTS_AVAILABLE, RAW_INPUTS_NOTE)
     def test_fresh_checkout_recreates_processed_directory(self):
         import tempfile, shutil
         from src.data import build
